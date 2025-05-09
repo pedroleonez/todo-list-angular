@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [RouterModule],
   templateUrl: './header.component.html'
 })
 export class HeaderComponent {
@@ -12,5 +12,5 @@ export class HeaderComponent {
     private readonly route: ActivatedRoute
   ) {}
 
-  
+
 }
