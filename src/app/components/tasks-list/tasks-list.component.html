@@ -1,5 +1,12 @@
-<div class="w-3xl mx-auto flex justify-center items-center rounded-box border border-base-content/5 bg-gray-900 mt-10">
-  <table class="table">
+<div class="container mx-auto mt-10">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl text-white">Lista de Tarefas</h2>
+    <button class="btn btn-primary" (click)="onAdd()">
+      Adicionar Tarefa
+    </button>
+  </div>
+  <div class="w-full rounded-box border border-base-content/5 bg-gray-900">
+    <table class="table w-full">
     <!-- head -->
     <thead>
       <tr>
@@ -11,17 +18,36 @@
         <th scope="col" class="text-white">actions</th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let task of tasks; let i = index">
+    <tbody>      <tr *ngFor="let task of tasks; let i = index">
         <th scope="row">{{ i + 1 }}</th>
         <td>{{ task.title }}</td>
         <td>{{ task.description }}</td>
-        <td>{{ task.completed }}</td>
-        <td>{{ task.priority }}</td>
         <td>
-          <!-- Add your action buttons here -->
+          <span class="badge" [ngClass]="{'badge-success': task.completed, 'badge-warning': !task.completed}">
+            {{ task.completed ? 'Concluída' : 'Pendente' }}
+          </span>
+        </td>
+        <td>
+          <span class="badge"
+            [ngClass]="{
+              'badge-success': task.priority === 1,
+              'badge-warning': task.priority === 2,
+              'badge-error': task.priority === 3
+            }">
+            {{ task.priority === 1 ? 'Baixa' : task.priority === 2 ? 'Média' : 'Alta' }}
+          </span>
+        </td>
+        <td>
+          <div class="flex gap-2">
+            <button class="btn btn-sm btn-warning" (click)="onEdit(task)">
+              Editar
+            </button>
+            <button class="btn btn-sm btn-error" (click)="onDelete(task)">
+              Excluir
+            </button>
+          </div>
         </td>
       </tr>
-    </tbody>
-  </table>
+    </tbody>  </table>
+</div>
 </div>
