@@ -1,1 +1,85 @@
-<p>task-form works!</p>
+<div
+  class="w-96 mx-auto flex justify-center items-center rounded-box border border-base-content/5 bg-gray-900 mt-10 py-3 flex-col"
+>
+  <div *ngIf="loading() && isEditMode()" class="py-8">
+    <span class="loading loading-spinner loading-lg"></span>
+  </div>
+  
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="!(loading() && isEditMode())">
+    <h1 class="text-2xl text-white mb-3">{{ pageTitle() }}</h1>
+    <fieldset class="fieldset mb-2">
+      <input
+        type="text"
+        name="title"
+        id="title"
+        class="input w-80"
+        placeholder="Título"
+        formControlName="title"
+      />
+      <!-- <p class="label">Optional</p> -->
+    </fieldset>
+
+    <fieldset class="fieldset mb-2">
+      <textarea
+        class="textarea"
+        name="description"
+        id="description"
+        placeholder="Descrição"
+        formControlName="description"
+      ></textarea>
+      <!-- <p class="label">Optional</p> -->
+    </fieldset>
+
+    <fieldset class="fieldset w-full mb-2">
+      <p class="text-white mb-1">Prioridade:</p>
+      <div class="flex space-x-4 items-center">
+        <label class="flex flex-col items-center cursor-pointer">
+          <span class="text-sm text-white mb-1">Baixa</span>
+          <input
+            type="radio"
+            name="priority"
+            value="1"
+            class="radio radio-success"
+            checked="checked"
+            formControlName="priority"
+          />
+        </label>
+        <label class="flex flex-col items-center cursor-pointer">
+          <span class="text-sm text-white mb-1">Média</span>
+          <input
+            type="radio"
+            name="priority"
+            value="2"
+            class="radio radio-warning"
+            formControlName="priority"
+          />
+        </label>
+        <label class="flex flex-col items-center cursor-pointer">
+          <span class="text-sm text-white mb-1">Alta</span>
+          <input
+            type="radio"
+            name="priority"
+            value="3"
+            class="radio radio-error"
+            formControlName="priority"
+          />
+        </label>
+      </div>
+    </fieldset>    <fieldset class="fieldset mb-2">
+      <p class="text-white mb-1">Concluída:</p>
+      <input type="checkbox" value="" class="toggle" formControlName="completed" />
+      <!-- <p class="label">Optional</p> -->
+    </fieldset>
+
+    <div class="mt-4 flex justify-center">
+      <button
+        type="submit"
+        class="btn btn-primary w-full"
+        [disabled]="loading()"
+      >
+        <span *ngIf="loading()" class="loading loading-spinner"></span>
+        {{ loading() ? 'Enviando...' : 'Salvar Tarefa' }}
+      </button>
+    </div>
+  </form>
+</div>
