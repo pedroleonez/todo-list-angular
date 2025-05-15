@@ -1,23 +1,30 @@
 <div class="container mx-auto mt-8">
-  <div *ngIf="loading" class="flex justify-center">
-    <span class="loading loading-spinner loading-lg"></span>
-  </div>
-
-  <div *ngIf="!loading">
-    <div *ngIf="tasks.length === 0" class="text-center py-10">
-      <h2 class="text-2xl text-white mb-4">Nenhuma tarefa encontrada</h2>
-      <button (click)="navigateToAdd()" class="btn btn-primary">
-        Adicionar Nova Tarefa
-      </button>
+  @if (loading) {
+    <div class="flex justify-center">
+      <span class="loading loading-spinner loading-lg"></span>
     </div>
+  }
 
-    <app-tasks-list
-      *ngIf="tasks.length > 0"
-      [tasks]="tasks"
-      (add)="navigateToAdd()"
-      (edit)="onEdit($event)"
-      (delete)="onDelete($event)"
-    >
-    </app-tasks-list>
-  </div>
+  @if (!loading) {
+    <div class="container">
+      @if (tasks.length === 0) {
+        <div class="text-center py-10">
+          <h2 class="text-2xl text-white mb-4">Nenhuma tarefa encontrada</h2>
+          <button (click)="navigateToAdd()" class="btn btn-primary">
+            Adicionar Nova Tarefa
+          </button>
+        </div>
+      }
+
+      @if (tasks.length > 0) {
+        <app-tasks-list
+          [tasks]="tasks"
+          (add)="navigateToAdd()"
+          (edit)="onEdit($event)"
+          (delete)="onDelete($event)"
+        >
+        </app-tasks-list>
+      }
+    </div>
+  }
 </div>
