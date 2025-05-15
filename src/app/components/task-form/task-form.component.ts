@@ -25,7 +25,7 @@ export class TaskFormComponent implements OnInit {
 
   form = this._formBuilder.group({
     title: this._formBuilder.control('', Validators.required),
-    description: this._formBuilder.control('', Validators.required),
+    description: this._formBuilder.control(''),
     priority: this._formBuilder.control('1', Validators.required),
     completed: this._formBuilder.control(false),
   });
@@ -72,7 +72,6 @@ export class TaskFormComponent implements OnInit {
         completed: this.form.get('completed')?.value || false,
       };
 
-      // Add ID if in edit mode
       if (this.isEditMode() && this.taskId) {
         task.id = this.taskId;
       }
